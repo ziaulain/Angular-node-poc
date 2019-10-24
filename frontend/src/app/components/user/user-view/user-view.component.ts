@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 interface UserModel {
   id?: number;
   name: string;
@@ -8,6 +9,7 @@ interface UserModel {
   status: string;
   hourlyRate: number;
 }
+
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
@@ -19,10 +21,9 @@ export class UserViewComponent implements OnInit {
     public dialogRef: MatDialogRef<UserViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UserModel) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  close(): void {
+  close() {
     this.dialogRef.close();
   }
 

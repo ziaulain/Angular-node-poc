@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class UserAddUpdateComponent implements OnInit {
   isLoading = false;
   userForm: FormGroup;
   todayDate: Date = new Date();
-
 
   constructor(
     public dialogRef: MatDialogRef<UserAddUpdateComponent>,
@@ -56,7 +54,6 @@ export class UserAddUpdateComponent implements OnInit {
           duration: 5000
         });
       }
-
     } catch (err) {
       this.snackBar.open('Something went wrong!', 'Close', {
         duration: 5000
@@ -66,7 +63,7 @@ export class UserAddUpdateComponent implements OnInit {
     this.dialogRef.close('Updated!');
   }
 
-  cancel(): void {
+  cancel() {
     this.dialogRef.close();
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-job-view',
   templateUrl: './job-view.component.html',
@@ -13,8 +12,7 @@ export class JobViewComponent implements OnInit {
     public dialogRef: MatDialogRef<JobViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   close(): void {
     this.dialogRef.close();

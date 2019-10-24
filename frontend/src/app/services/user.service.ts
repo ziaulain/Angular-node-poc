@@ -14,7 +14,9 @@ interface UserModel {
   providedIn: 'root'
 })
 export class UserService {
+
   userService: any;
+
   constructor(private feathers: FeathersService) {
     this.userService = this.feathers.createService<UserModel>('user');
   }
@@ -28,14 +30,11 @@ export class UserService {
   }
 
   async getUsers(pageNum: number) {
-    return await this.userService.find({
-      query: {
-        $skip: pageNum * 10
-      }
-    });
+    return await this.userService.find({ query: { $skip: pageNum * 10 } });
   }
 
   async deleteUser(userId: number) {
     return await this.userService.remove(userId);
   }
+
 }

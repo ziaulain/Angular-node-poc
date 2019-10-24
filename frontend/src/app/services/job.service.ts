@@ -11,7 +11,9 @@ interface JobModel {
   providedIn: 'root'
 })
 export class JobService {
+
   jobService: any;
+
   constructor(private feathers: FeathersService) {
     this.jobService = this.feathers.createService<JobModel>('job');
   }
@@ -35,4 +37,5 @@ export class JobService {
   async deleteJob(id: number) {
     return await this.jobService.remove(id);
   }
+
 }

@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { JobService } from '../../../services/job.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { JobAddUpdateComponent } from '../job-add-update/job-add-update.component';
 import { JobViewComponent } from '../job-view/job-view.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
@@ -15,10 +14,9 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit, AfterViewInit {
+
   displayedColumns: string[] = ['id', 'title', 'description', 'actionBtns'];
   data: any[] = [];
-  users: [];
-
   resultsLength = 0;
   pageOffset = 0;
   isLoadingResults = true;
@@ -26,15 +24,12 @@ export class JobListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-
   constructor(
     private snackBar: MatSnackBar,
     private jobService: JobService,
     public dialog: MatDialog) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.fetchJobs();
@@ -60,12 +55,11 @@ export class JobListComponent implements OnInit, AfterViewInit {
     this.fetchJobs();
   }
 
-  newJob(): void {
+  newJob() {
     const dialogRef = this.dialog.open(JobAddUpdateComponent, {
       disableClose: true,
       width: '400px'
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchJobs();
@@ -87,7 +81,6 @@ export class JobListComponent implements OnInit, AfterViewInit {
       width: '400px',
       data: row
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchJobs();
@@ -100,7 +93,6 @@ export class JobListComponent implements OnInit, AfterViewInit {
       width: '400px',
       data: row
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.jobService.deleteJob(row.id);
@@ -111,4 +103,5 @@ export class JobListComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 }

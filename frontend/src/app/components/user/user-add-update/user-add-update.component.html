@@ -2,108 +2,65 @@
     <span *ngIf="newUser">New User</span>
     <span *ngIf="!newUser">Update User</span>
 </h1>
-<form
-    [formGroup]="userForm"
-    (ngSubmit)="onSubmit(userForm)"
->
+<form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
     <div mat-dialog-content>
-
+        
         <mat-form-field class="full-width">
-            <input
-                matInput
-                placeholder="Name"
-                formControlName="name"
-                required
-            >
+            <input matInput placeholder="Name" formControlName="name" required>
             <mat-error *ngIf="userForm.controls.name.hasError('required')">
-                Name is
-                <strong>required</strong>
+                Name is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        
         <mat-form-field class="full-width">
-            <input
-                matInput
-                placeholder="Date of birth"
-                formControlName="dateOfBirth"
-                required
-                [max]="todayDate"
-                [matDatepicker]="picker"
-            >
-            <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-            ></mat-datepicker-toggle>
+            <input matInput placeholder="Date of birth" formControlName="dateOfBirth" required [max]="todayDate" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="userForm.controls.dateOfBirth.hasError('dateOfBirth') && !userForm.controls.dateOfBirth.hasError('required')">Please enter a valid email address</mat-error>
+            <mat-error *ngIf="userForm.controls.dateOfBirth.hasError('dateOfBirth') && !userForm.controls.dateOfBirth.hasError('required')">
+                Please enter a valid date of birth
+            </mat-error>
             <mat-error *ngIf="userForm.controls.dateOfBirth.hasError('required')">
-                Email is
-                <strong>required</strong>
+                Date of birth is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        
         <mat-form-field class="full-width">
-            <input
-                matInput
-                placeholder="Email"
-                formControlName="email"
-                required
-            >
-            <mat-error *ngIf="userForm.controls.email.hasError('email') && !userForm.controls.email.hasError('required')">Please enter a valid email address</mat-error>
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="userForm.controls.email.hasError('email') && !userForm.controls.email.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
             <mat-error *ngIf="userForm.controls.email.hasError('required')">
-                Email is
-                <strong>required</strong>
+                Email is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        
         <mat-form-field class="full-width">
             <mat-label>Gender</mat-label>
-            <select
-                matNativeControl
-                placeholder="Gender"
-                formControlName="status"
-                required
-            >
+            <select matNativeControl placeholder="Gender" formControlName="status" required>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
             </select>
             <mat-error *ngIf="userForm.controls.status.hasError('required')">
-                Gender is
-                <strong>required</strong>
+                Gender is <strong>required</strong>
             </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width">
-
-            <input
-                type="number"
-                matInput
-                placeholder="Hourly rate"
-                formControlName="hourlyRate"
-                required
-            >
+            <input type="number" matInput placeholder="Hourly rate" formControlName="hourlyRate" required>
             <span matSuffix>$</span>
             <mat-error *ngIf="userForm.controls.hourlyRate.hasError('required')">
-                Hourly rate is
-                <strong>required</strong>
+                Hourly rate is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="userForm.controls.hourlyRate.hasError('min')">Hourly rate cannot be less than 0</mat-error>
         </mat-form-field>
 
     </div>
     <div mat-dialog-actions>
-        <button
-            type="button"
-            mat-raised-button
-            (click)="cancel()"
-        >
+        <button type="button" mat-raised-button (click)="cancel()">
             Cancel
         </button>
-        <button
-            type="submit"
-            mat-raised-button
-            color="primary"
-            cdkFocusInitial
-            [disabled]="userForm.invalid || isLoading"
-        >
+        <button type="submit" mat-raised-button color="primary" cdkFocusInitial [disabled]="userForm.invalid || isLoading">
             <span *ngIf="newUser">Save</span>
             <span *ngIf="!newUser">Update</span>
         </button>

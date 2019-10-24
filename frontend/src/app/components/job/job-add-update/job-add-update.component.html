@@ -2,54 +2,29 @@
     <span *ngIf="newJob">New Job</span>
     <span *ngIf="!newJob">Update Job</span>
 </h1>
-<form
-    [formGroup]="jobForm"
-    (ngSubmit)="onSubmit(jobForm)"
->
+<form [formGroup]="jobForm" (ngSubmit)="onSubmit(jobForm)">
+    
     <div mat-dialog-content>
-
         <mat-form-field class="full-width">
-            <input
-                matInput
-                placeholder="Title"
-                formControlName="title"
-                required
-            >
+            <input matInput placeholder="Title" formControlName="title" required>
             <mat-error *ngIf="jobForm.controls.title.hasError('required')">
-                Title is
-                <strong>required</strong>
+                Title is <strong>required</strong>
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <textarea
-                matInput
-                placeholder="Description"
-                formControlName="description"
-                required
-            >
+            <textarea matInput placeholder="Description" formControlName="description" required >
             </textarea>
             <mat-error *ngIf="jobForm.controls.description.hasError('required')">
-                Description is
-                <strong>required</strong>
+                Description is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-
     </div>
+
     <div mat-dialog-actions>
-        <button
-            type="button"
-            mat-raised-button
-            (click)="cancel()"
-        >
+        <button type="button" mat-raised-button (click)="cancel()">
             Cancel
         </button>
-        <button
-            type="submit"
-            mat-raised-button
-            color="primary"
-            cdkFocusInitial
-            [disabled]="jobForm.invalid || isLoading"
-        >
+        <button type="submit" mat-raised-button color="primary" cdkFocusInitial [disabled]="jobForm.invalid || isLoading">
             <span *ngIf="newJob">Save</span>
             <span *ngIf="!newJob">Update</span>
         </button>

@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { JobService } from '../../../services/job.service';
+
 @Component({
   selector: 'app-job-add-update',
   templateUrl: './job-add-update.component.html',
@@ -50,7 +50,6 @@ export class JobAddUpdateComponent implements OnInit {
           duration: 5000
         });
       }
-
     } catch (err) {
       this.snackBar.open('Something went wrong!', 'Close', {
         duration: 5000

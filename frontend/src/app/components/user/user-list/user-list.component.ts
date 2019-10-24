@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { UserService } from '../../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { UserService } from '../../../services/user.service';
 import { UserAddUpdateComponent } from '../user-add-update/user-add-update.component';
 import { UserViewComponent } from '../user-view/user-view.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
@@ -18,7 +17,6 @@ export class UserListComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['id', 'name', 'dateOfBirth', 'email', 'status', 'hourlyRate', 'actionBtns'];
   data: any[] = [];
-
   resultsLength = 0;
   pageOffset = 0;
   isLoadingResults = true;
@@ -61,7 +59,6 @@ export class UserListComponent implements AfterViewInit {
       disableClose: true,
       width: '400px'
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchUsers();
@@ -83,7 +80,6 @@ export class UserListComponent implements AfterViewInit {
       width: '400px',
       data: row
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchUsers();
@@ -96,7 +92,6 @@ export class UserListComponent implements AfterViewInit {
       width: '400px',
       data: row
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.deleteUser(row.id);
