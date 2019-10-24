@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+
+<div mat-dialog-content>
+
+    <table class="full-width">
+        <tbody>
+            <tr>
+                <td>
+                    <b>Job Id:</b>
+                </td>
+                <td>{{data.id}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Description:</b>
+                </td>
+                <td>{{data.description}}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>Created on:</b>
+                </td>
+                <td>{{data.createdAt | date}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Updated on:</b>
+                </td>
+                <td>{{data.updatedAt | date}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <button
+        mat-raised-button
+        (click)="close()"
+    >
+        Close
+    </button>
+
+</div>
