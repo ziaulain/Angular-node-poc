@@ -52,7 +52,9 @@ export class JobAddUpdateComponent implements OnInit {
       }
 
     } catch (err) {
-      console.log(err);
+      this.snackBar.open('Something went wrong!', 'Close', {
+        duration: 5000
+      });
     }
     this.isLoading = false;
     this.dialogRef.close('Updated!');

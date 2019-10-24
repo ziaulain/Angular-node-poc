@@ -1,3 +1,5 @@
+<mat-toolbar>Users</mat-toolbar>
+
 <div class="create-new-btn">
     <button
         mat-button
@@ -19,7 +21,7 @@
     *ngIf="data.length!==0"
 >
     <div
-        class="example-loading-shade"
+        class="loading-shade"
         *ngIf="isLoadingResults"
     >
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>

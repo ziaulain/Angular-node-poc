@@ -85,10 +85,7 @@
                 Hourly rate is
                 <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="userForm.controls.hourlyRate.hasError('min')">
-                Hourly rate cannot be less than 0
-                <!-- <strong>required</strong> -->
-            </mat-error>
+            <mat-error *ngIf="userForm.controls.hourlyRate.hasError('min')">Hourly rate cannot be less than 0</mat-error>
         </mat-form-field>
 
     </div>

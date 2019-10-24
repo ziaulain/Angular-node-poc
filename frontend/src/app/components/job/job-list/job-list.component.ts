@@ -48,7 +48,9 @@ export class JobListComponent implements OnInit, AfterViewInit {
       this.data = jobs.data;
       this.resultsLength = jobs.total;
     } catch (err) {
-      console.log(err);
+      this.snackBar.open('Something went wrong!', 'Close', {
+        duration: 5000
+      });
     }
     this.isLoadingResults = false;
   }

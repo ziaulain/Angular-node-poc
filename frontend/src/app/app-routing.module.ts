@@ -7,6 +7,7 @@ import { JobListComponent } from './components/job/job-list/job-list.component';
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
   { path: 'jobs', component: JobListComponent },
+  { path: '**', redirectTo: 'users', pathMatch: 'full' }
 ];
 
 @NgModule({

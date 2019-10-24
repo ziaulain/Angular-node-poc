@@ -44,7 +44,9 @@ export class UserListComponent implements AfterViewInit {
       this.data = users.data;
       this.resultsLength = users.total;
     } catch (err) {
-      console.log(err);
+      this.snackBar.open('Something went wrong!', 'Close', {
+        duration: 5000
+      });
     }
     this.isLoadingResults = false;
   }
