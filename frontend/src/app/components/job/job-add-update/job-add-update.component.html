@@ -2,6 +2,7 @@
     <span *ngIf="newJob">New Job</span>
     <span *ngIf="!newJob">Update Job</span>
 </h1>
+
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit(jobForm)">
     
     <div mat-dialog-content>
@@ -12,7 +13,7 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <textarea matInput placeholder="Description" formControlName="description" required >
+            <textarea matInput placeholder="Description" formControlName="description" required>
             </textarea>
             <mat-error *ngIf="jobForm.controls.description.hasError('required')">
                 Description is <strong>required</strong>
@@ -29,4 +30,5 @@
             <span *ngIf="!newJob">Update</span>
         </button>
     </div>
+
 </form>

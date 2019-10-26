@@ -9,6 +9,7 @@
 </div>
 
 <div class="table-container mat-elevation-z8" *ngIf="data.length!==0">
+    
     <div class="loading-shade" *ngIf="isLoadingResults">
         <mat-spinner></mat-spinner>
     </div>
@@ -53,8 +54,10 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </tbody>
+            
         </table>
     </div>
 
     <mat-paginator [length]="resultsLength" [pageSize]="10" (page)="nextPage($event)"></mat-paginator>
+
 </div>

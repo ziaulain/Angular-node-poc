@@ -2,9 +2,11 @@
     <span *ngIf="newUser">New User</span>
     <span *ngIf="!newUser">Update User</span>
 </h1>
+
 <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+    
     <div mat-dialog-content>
-        
+
         <mat-form-field class="full-width">
             <input matInput placeholder="Name" formControlName="name" required>
             <mat-error *ngIf="userForm.controls.name.hasError('required')">
@@ -54,8 +56,9 @@
             </mat-error>
             <mat-error *ngIf="userForm.controls.hourlyRate.hasError('min')">Hourly rate cannot be less than 0</mat-error>
         </mat-form-field>
-
+        
     </div>
+
     <div mat-dialog-actions>
         <button type="button" mat-raised-button (click)="cancel()">
             Cancel
@@ -64,5 +67,7 @@
             <span *ngIf="newUser">Save</span>
             <span *ngIf="!newUser">Update</span>
         </button>
+
     </div>
+
 </form>
