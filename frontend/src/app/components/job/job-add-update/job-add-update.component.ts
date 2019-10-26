@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JobService } from '../../../services/job.service';
-
+import { JobModel } from '../job-model';
 @Component({
   selector: 'app-job-add-update',
   templateUrl: './job-add-update.component.html',
@@ -11,16 +11,20 @@ import { JobService } from '../../../services/job.service';
 })
 export class JobAddUpdateComponent implements OnInit {
 
-  newJob = true;
-  isLoading = false;
-  jobForm: FormGroup;
+  public newJob: boolean;
+  public isLoading: boolean;
+  public jobForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<JobAddUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: JobModel,
     private snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private jobService: JobService) { }
+    private jobService: JobService) {
+
+    this.newJob = true;
+    this.isLoading = false;
+  }
 
   ngOnInit() {
     this.jobForm = this.fb.group({
@@ -36,16 +40,16 @@ export class JobAddUpdateComponent implements OnInit {
     }
   }
 
-  async onSubmit(userForm: any) {
+  public async onSubmit() {
     this.isLoading = true;
     try {
       if (this.data) {
-        await this.jobService.updateJob(this.data.id, this.jobForm.value);
+        await this.jobService.update(this.data.id, this.jobForm.value);
         this.snackBar.open('Job Updated successfully!', 'Close', {
           duration: 5000
         });
       } else {
-        await this.jobService.createJob(this.jobForm.value);
+        await this.jobService.create(this.jobForm.value);
         this.snackBar.open('Job Created successfully!', 'Close', {
           duration: 5000
         });
@@ -59,7 +63,7 @@ export class JobAddUpdateComponent implements OnInit {
     this.dialogRef.close('Updated!');
   }
 
-  cancel(): void {
+  public cancel(): void {
     this.dialogRef.close();
   }
 

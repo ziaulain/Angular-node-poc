@@ -7,6 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { UserAddUpdateComponent } from '../user-add-update/user-add-update.component';
 import { UserViewComponent } from '../user-view/user-view.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { UserModel } from '../user-model';
 
 @Component({
   selector: 'app-user-list',
@@ -15,12 +16,12 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
 })
 export class UserListComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'dateOfBirth', 'email', 'status', 'hourlyRate', 'actionBtns'];
-  data: any[] = [];
-  resultsLength = 0;
-  pageOffset = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
+  public displayedColumns: string[];
+  public data: UserModel[];
+  public resultsLength: number;
+  private pageOffset: number;
+  public isLoadingResults: boolean;
+  public isRateLimitReached: boolean;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -28,17 +29,25 @@ export class UserListComponent implements AfterViewInit {
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+
+    this.displayedColumns = ['id', 'name', 'dateOfBirth', 'email', 'status', 'hourlyRate', 'actionBtns'];
+    this.data = [];
+    this.resultsLength = 0;
+    this.pageOffset = 0;
+    this.isLoadingResults = true;
+    this.isRateLimitReached = false;
+  }
 
   ngAfterViewInit() {
     this.fetchUsers();
   }
 
-  async fetchUsers() {
+  private async fetchUsers() {
     this.isLoadingResults = true;
     let users: any = {};
     try {
-      users = await this.userService.getUsers(this.pageOffset);
+      users = await this.userService.get(this.pageOffset);
       this.data = users.data;
       this.resultsLength = users.total;
     } catch (err) {
@@ -49,12 +58,12 @@ export class UserListComponent implements AfterViewInit {
     this.isLoadingResults = false;
   }
 
-  nextPage(e) {
+  public nextPage(e: MatPaginator) {
     this.pageOffset = e.pageIndex;
     this.fetchUsers();
   }
 
-  newUser(): void {
+  public newUser(): void {
     const dialogRef = this.dialog.open(UserAddUpdateComponent, {
       disableClose: true,
       width: '400px'
@@ -66,7 +75,7 @@ export class UserListComponent implements AfterViewInit {
     });
   }
 
-  viewRow(row) {
+  public viewRow(row: UserModel) {
     this.dialog.open(UserViewComponent, {
       disableClose: true,
       width: '400px',
@@ -74,7 +83,7 @@ export class UserListComponent implements AfterViewInit {
     });
   }
 
-  updateRow(row) {
+  public updateRow(row: UserModel) {
     const dialogRef = this.dialog.open(UserAddUpdateComponent, {
       disableClose: true,
       width: '400px',
@@ -87,14 +96,14 @@ export class UserListComponent implements AfterViewInit {
     });
   }
 
-  deleteRow(row) {
+  public deleteRow(row: UserModel) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.deleteUser(row.id);
+        this.userService.delete(row.id);
         this.snackBar.open('User deleted!', 'Close', {
           duration: 5000
         });

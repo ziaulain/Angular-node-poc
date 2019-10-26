@@ -23,7 +23,7 @@ export class UserViewComponent implements OnInit {
 
   ngOnInit() { }
 
-  close() {
+  public close() {
     this.dialogRef.close();
   }
 

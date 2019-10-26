@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { JobAddUpdateComponent } from '../job-add-update/job-add-update.component';
 import { JobViewComponent } from '../job-view/job-view.component';
 import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { JobModel } from '../job-model';
+
 
 @Component({
   selector: 'app-job-list',
@@ -15,11 +17,11 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
 })
 export class JobListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'title', 'description', 'actionBtns'];
-  data: any[] = [];
-  resultsLength = 0;
-  pageOffset = 0;
-  isLoadingResults = true;
+  public displayedColumns: string[] = ['id', 'title', 'description', 'actionBtns'];
+  public data: JobModel[] = [];
+  public resultsLength = 0;
+  public isLoadingResults = true;
+  private pageOffset = 0;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -35,11 +37,11 @@ export class JobListComponent implements OnInit, AfterViewInit {
     this.fetchJobs();
   }
 
-  async fetchJobs() {
+  private async fetchJobs() {
     this.isLoadingResults = true;
     let jobs: any = {};
     try {
-      jobs = await this.jobService.getJobs(this.pageOffset);
+      jobs = await this.jobService.get(this.pageOffset);
       this.data = jobs.data;
       this.resultsLength = jobs.total;
     } catch (err) {
@@ -50,12 +52,12 @@ export class JobListComponent implements OnInit, AfterViewInit {
     this.isLoadingResults = false;
   }
 
-  nextPage(e) {
+  public nextPage(e: MatPaginator) {
     this.pageOffset = e.pageIndex;
     this.fetchJobs();
   }
 
-  newJob() {
+  public newJob() {
     const dialogRef = this.dialog.open(JobAddUpdateComponent, {
       disableClose: true,
       width: '400px'
@@ -67,7 +69,7 @@ export class JobListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  viewRow(row) {
+  public viewRow(row: JobModel) {
     this.dialog.open(JobViewComponent, {
       disableClose: true,
       width: '400px',
@@ -75,7 +77,7 @@ export class JobListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateRow(row) {
+  public updateRow(row: JobModel) {
     const dialogRef = this.dialog.open(JobAddUpdateComponent, {
       disableClose: true,
       width: '400px',
@@ -88,14 +90,14 @@ export class JobListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteRow(row) {
+  public deleteRow(row: JobModel) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.jobService.deleteJob(row.id);
+        this.jobService.delete(row.id);
         this.snackBar.open('Job deleted!', 'Close', {
           duration: 5000
         });

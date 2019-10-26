@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../services/user.service';
+import { UserModel } from '../user-model';
 
 @Component({
   selector: 'app-user-add-update',
@@ -11,17 +12,22 @@ import { UserService } from '../../../services/user.service';
 })
 export class UserAddUpdateComponent implements OnInit {
 
-  newUser = true;
-  isLoading = false;
-  userForm: FormGroup;
-  todayDate: Date = new Date();
+  public newUser: boolean;
+  public isLoading: boolean;
+  public userForm: FormGroup;
+  public todayDate: Date;
 
   constructor(
     public dialogRef: MatDialogRef<UserAddUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: UserModel,
     private snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService) {
+
+    this.newUser = true;
+    this.isLoading = false;
+    this.todayDate = new Date();
+  }
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -40,16 +46,16 @@ export class UserAddUpdateComponent implements OnInit {
     }
   }
 
-  async onSubmit(userForm: any) {
+  public async onSubmit() {
     this.isLoading = true;
     try {
       if (this.data) {
-        await this.userService.updateUser(this.data.id, userForm.value);
+        await this.userService.update(this.data.id, this.userForm.value);
         this.snackBar.open('User Updated successfully!', 'Close', {
           duration: 5000
         });
       } else {
-        await this.userService.createUser(userForm.value);
+        await this.userService.create(this.userForm.value);
         this.snackBar.open('User Created successfully!', 'Close', {
           duration: 5000
         });
@@ -63,7 +69,7 @@ export class UserAddUpdateComponent implements OnInit {
     this.dialogRef.close('Updated!');
   }
 
-  cancel() {
+  public cancel() {
     this.dialogRef.close();
   }
 

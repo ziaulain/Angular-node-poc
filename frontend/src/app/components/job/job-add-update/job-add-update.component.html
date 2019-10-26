@@ -3,7 +3,7 @@
     <span *ngIf="!newJob">Update Job</span>
 </h1>
 
-<form [formGroup]="jobForm" (ngSubmit)="onSubmit(jobForm)">
+<form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
     
     <div mat-dialog-content>
         <mat-form-field class="full-width">
