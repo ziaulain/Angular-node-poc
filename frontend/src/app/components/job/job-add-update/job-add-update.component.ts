@@ -14,6 +14,7 @@ export class JobAddUpdateComponent implements OnInit {
   public newJob: boolean;
   public isLoading: boolean;
   public jobForm: FormGroup;
+  public objectSaveRes: any;
 
   constructor(
     public dialogRef: MatDialogRef<JobAddUpdateComponent>,
@@ -24,16 +25,16 @@ export class JobAddUpdateComponent implements OnInit {
 
     this.newJob = true;
     this.isLoading = false;
-  }
-
-  ngOnInit() {
     this.jobForm = this.fb.group({
       id: null,
-      title: ['', Validators.required],
+      title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       createdAt: [null],
       updatedAt: [null]
     });
+  }
+
+  ngOnInit() {
     if (this.data) {
       this.jobForm.setValue(this.data);
       this.newJob = false;
@@ -44,12 +45,12 @@ export class JobAddUpdateComponent implements OnInit {
     this.isLoading = true;
     try {
       if (this.data) {
-        await this.jobService.update(this.data.id, this.jobForm.value);
+        this.objectSaveRes = await this.jobService.update(this.data.id, this.jobForm.value);
         this.snackBar.open('Job Updated successfully!', 'Close', {
           duration: 5000
         });
       } else {
-        await this.jobService.create(this.jobForm.value);
+        this.objectSaveRes = await this.jobService.create(this.jobForm.value);
         this.snackBar.open('Job Created successfully!', 'Close', {
           duration: 5000
         });

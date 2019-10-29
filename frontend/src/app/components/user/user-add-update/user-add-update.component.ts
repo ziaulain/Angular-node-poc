@@ -16,6 +16,7 @@ export class UserAddUpdateComponent implements OnInit {
   public isLoading: boolean;
   public userForm: FormGroup;
   public todayDate: Date;
+  public objectSaveRes: any;
 
   constructor(
     public dialogRef: MatDialogRef<UserAddUpdateComponent>,
@@ -50,12 +51,12 @@ export class UserAddUpdateComponent implements OnInit {
     this.isLoading = true;
     try {
       if (this.data) {
-        await this.userService.update(this.data.id, this.userForm.value);
+        this.objectSaveRes = await this.userService.update(this.data.id, this.userForm.value);
         this.snackBar.open('User Updated successfully!', 'Close', {
           duration: 5000
         });
       } else {
-        await this.userService.create(this.userForm.value);
+        this.objectSaveRes = await this.userService.create(this.userForm.value);
         this.snackBar.open('User Created successfully!', 'Close', {
           duration: 5000
         });
